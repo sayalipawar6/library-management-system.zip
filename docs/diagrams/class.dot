@@ -1,0 +1,16 @@
+digraph ClassDiagram {
+    rankdir=TB;
+    fontname="Helvetica";
+    node [shape=record, fontname="Helvetica", style=filled, fillcolor="#eaf2fb", color="#2c5f8a"];
+
+    User [label="{User|+ id: int\l+ username: str\l+ password_hash: str\l+ role: str\l}"];
+    Book [label="{Book|+ id: int\l+ title: str\l+ author: str\l+ isbn: str\l+ quantity: int\l+ available: int\l}"];
+    Loan [label="{Loan|+ id: int\l+ book_id: int (FK)\l+ borrower: str\l+ issued_by: int (FK)\l+ issue_date: date\l+ due_date: date\l+ return_date: date\l+ status: str\l}"];
+    ModelsModule [label="{models.py|+ create_user()\l+ add_book() / update_book() / remove_book()\l+ issue_book() / return_book()\l+ get_summary_stats()\l}", fillcolor="#eafbea", color="#1e6b3c"];
+
+    User -> Loan [label="1..* issues", arrowhead=vee];
+    Book -> Loan [label="1..* borrowed as", arrowhead=vee];
+    ModelsModule -> User [style=dashed, label="reads/writes"];
+    ModelsModule -> Book [style=dashed, label="reads/writes"];
+    ModelsModule -> Loan [style=dashed, label="reads/writes"];
+}

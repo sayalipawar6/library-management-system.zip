@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Loans{% endblock %}
+{% block content %}
+<h1>Active loans</h1>
+<table class="table">
+  <tr><th>Book</th><th>Borrower</th><th>Issued</th><th>Due</th><th></th></tr>
+  {% for loan in active_loans %}
+  <tr class="{{ 'overdue-row' if loan.id in overdue|map(attribute='id')|list else '' }}">
+    <td>{{ loan.title }}</td>
+    <td>{{ loan.borrower }}</td>
+    <td>{{ loan.issue_date }}</td>
+    <td>{{ loan.due_date }}</td>
+    <td>
+      <form method="post" action="{{ url_for('loans.return_loan', loan_id=loan.id) }}">
+        <button type="submit">Mark returned</button>
+      </form>
+    </td>
+  </tr>
+  {% else %}
+  <tr><td colspan="5">No active loans.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,23 @@
+sequenceDiagram
+    actor L as Librarian
+    participant UI as Browser
+    participant R as loans.py (Flask route)
+    participant M as models.py
+    participant DB as SQLite
+
+    L->>UI: Select book, enter borrower, submit
+    UI->>R: POST /loans/issue
+    R->>M: issue_book(book_id, borrower, user_id)
+    M->>DB: SELECT book WHERE id = ?
+    DB-->>M: book row (available count)
+    alt available < 1
+        M-->>R: None
+        R-->>UI: Flash "not available"
+    else available >= 1
+        M->>DB: UPDATE books SET available = available - 1
+        M->>DB: INSERT INTO loans (...)
+        DB-->>M: new loan id
+        M-->>R: loan_id
+        R-->>UI: Redirect to /loans/ with success message
+    end
+    UI-->>L: Show updated loan list

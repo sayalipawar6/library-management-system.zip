@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Issue book</title>
+  <style>:root {
+  --primary: #2c5f8a;
+  --danger: #b3261e;
+  --success: #1e6b3c;
+  --warning: #8a5a00;
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --border: #dde1e8;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: #1c1f26;
+}
+
+.navbar {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.navbar a {
+  color: white;
+  margin-left: 1rem;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.navbar a:hover { text-decoration: underline; }
+
+.brand { font-weight: 600; }
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.form, .form-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.form-inline { flex-direction: row; align-items: center; max-width: none; flex-wrap: wrap; }
+
+label { display: flex; flex-direction: column; font-size: 0.9rem; gap: 0.25rem; }
+
+input, select {
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button, .button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.95rem;
+}
+
+.link-button {
+  background: none;
+  color: var(--danger);
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table th, .table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.overdue-row { background: #fdecea; }
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+.stat-warning .stat-number { color: var(--danger); }
+
+.flashes { list-style: none; padding: 0; margin: 0 0 1rem 0; }
+.flash { padding: 0.6rem 0.9rem; border-radius: 6px; margin-bottom: 0.5rem; font-size: 0.9rem; }
+.flash-success { background: #e6f4ea; color: var(--success); }
+.flash-danger { background: #fdecea; color: var(--danger); }
+.flash-warning, .flash-info { background: #fff6e5; color: var(--warning); }
+</style>
+</head>
+<body>
+  <nav class="navbar">
+    <span class="brand">📚 Library Management System</span>
+    
+      <div class="nav-links">
+        <a href="/">Dashboard</a>
+        <a href="/books/">Books</a>
+        <a href="/loans/">Loans</a>
+        <a href="/loans/issue">Issue Book</a>
+        <span class="user">admin</span>
+        <a href="/auth/logout">Logout</a>
+      </div>
+    
+  </nav>
+
+  <main class="container">
+    
+      
+    
+
+    
+<h1>Issue a book</h1>
+<form method="post" class="form">
+  <label>Book
+    <select name="book_id" required>
+      <option value="" disabled selected>Choose a book</option>
+      
+      <option value="1">Clean Code (2 available)</option>
+      
+      <option value="2">Dune (2 available)</option>
+      
+      <option value="3">The Pragmatic Programmer (1 available)</option>
+      
+    </select>
+  </label>
+  <label>Borrower name <input type="text" name="borrower" required></label>
+  <button type="submit">Issue book</button>
+</form>
+
+  </main>
+</body>
+</html>

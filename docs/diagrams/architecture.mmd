@@ -1,0 +1,33 @@
+flowchart TB
+    subgraph Client["Client (Browser)"]
+        UI[HTML Templates<br/>Jinja2 + CSS]
+    end
+
+    subgraph App["Flask Application"]
+        Auth["auth.py<br/>Register / Login / Logout"]
+        Books["books.py<br/>Book CRUD"]
+        Loans["loans.py<br/>Issue / Return"]
+        Reports["reports.py<br/>Dashboard"]
+        Utils["utils.py<br/>Validation & Access Control"]
+        Models["models.py<br/>Data Access Layer"]
+    end
+
+    subgraph Data["Persistence"]
+        DB[("SQLite<br/>library.db")]
+    end
+
+    UI -->|HTTP requests| Auth
+    UI -->|HTTP requests| Books
+    UI -->|HTTP requests| Loans
+    UI -->|HTTP requests| Reports
+
+    Auth --> Utils
+    Books --> Utils
+    Loans --> Utils
+
+    Auth --> Models
+    Books --> Models
+    Loans --> Models
+    Reports --> Models
+
+    Models --> DB

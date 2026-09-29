@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ "Edit" if book else "Add" }} book{% endblock %}
+{% block content %}
+<h1>{{ "Edit" if book else "Add" }} book</h1>
+<form method="post" class="form">
+  <label>Title <input type="text" name="title" value="{{ book.title if book else '' }}" required></label>
+  <label>Author <input type="text" name="author" value="{{ book.author if book else '' }}" required></label>
+  <label>ISBN (optional) <input type="text" name="isbn" value="{{ book.isbn if book else '' }}"></label>
+  <label>Quantity <input type="number" name="quantity" min="0" value="{{ book.quantity if book else 1 }}" required></label>
+  <button type="submit">Save</button>
+</form>
+{% endblock %}

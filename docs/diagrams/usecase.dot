@@ -1,0 +1,27 @@
+digraph UseCase {
+    rankdir=LR;
+    fontname="Helvetica";
+    node [fontname="Helvetica"];
+
+    Librarian [shape=none, label="Librarian", image="", fontsize=14];
+    Librarian [shape=box, style="rounded,filled", fillcolor="#eafbea", color="#1e6b3c"];
+
+    node [shape=ellipse, style=filled, fillcolor="#eaf2fb", color="#2c5f8a"];
+    UC1 [label="Register / Log in"];
+    UC2 [label="Add Book"];
+    UC3 [label="Edit Book"];
+    UC4 [label="Remove Book"];
+    UC5 [label="Search / View Catalog"];
+    UC6 [label="Issue Book to Borrower"];
+    UC7 [label="Return Book"];
+    UC8 [label="View Dashboard &\nOverdue Report"];
+
+    Librarian -> UC1;
+    Librarian -> UC2;
+    Librarian -> UC3;
+    Librarian -> UC4;
+    Librarian -> UC5;
+    Librarian -> UC6;
+    Librarian -> UC7;
+    Librarian -> UC8;
+}

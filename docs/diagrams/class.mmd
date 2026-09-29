@@ -1,0 +1,40 @@
+classDiagram
+    class User {
+        +int id
+        +str username
+        +str password_hash
+        +str role
+    }
+    class Book {
+        +int id
+        +str title
+        +str author
+        +str isbn
+        +int quantity
+        +int available
+    }
+    class Loan {
+        +int id
+        +int book_id
+        +str borrower
+        +int issued_by
+        +date issue_date
+        +date due_date
+        +date return_date
+        +str status
+    }
+    class ModelsModule {
+        +create_user()
+        +add_book()
+        +update_book()
+        +remove_book()
+        +issue_book()
+        +return_book()
+        +get_summary_stats()
+    }
+
+    User "1" --> "0..*" Loan : issues
+    Book "1" --> "0..*" Loan : borrowed as
+    ModelsModule ..> User : reads/writes
+    ModelsModule ..> Book : reads/writes
+    ModelsModule ..> Loan : reads/writes

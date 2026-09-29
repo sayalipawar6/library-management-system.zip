@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Books{% endblock %}
+{% block content %}
+<h1>Book catalog</h1>
+<form method="get" class="form-inline">
+  <input type="text" name="q" value="{{ query }}" placeholder="Search title, author or ISBN">
+  <button type="submit">Search</button>
+  <a class="button" href="{{ url_for('books.add_book') }}">+ Add book</a>
+</form>
+
+<table class="table">
+  <tr><th>Title</th><th>Author</th><th>ISBN</th><th>Available / Total</th><th></th></tr>
+  {% for book in books %}
+  <tr>
+    <td>{{ book.title }}</td>
+    <td>{{ book.author }}</td>
+    <td>{{ book.isbn or "—" }}</td>
+    <td>{{ book.available }} / {{ book.quantity }}</td>
+    <td>
+      <a href="{{ url_for('books.edit_book', book_id=book.id) }}">Edit</a>
+      <form method="post" action="{{ url_for('books.remove_book', book_id=book.id) }}"
+            style="display:inline" onsubmit="return confirm('Remove this book?');">
+        <button type="submit" class="link-button">Remove</button>
+      </form>
+    </td>
+  </tr>
+  {% else %}
+  <tr><td colspan="5">No books found.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

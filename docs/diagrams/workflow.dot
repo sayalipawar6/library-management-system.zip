@@ -1,0 +1,52 @@
+digraph Workflow {
+    rankdir=TB;
+    fontname="Helvetica";
+    node [shape=box, style="rounded,filled", fontname="Helvetica", fillcolor="#eaf2fb", color="#2c5f8a"];
+    edge [fontname="Helvetica"];
+
+    Start [shape=ellipse, label="Librarian opens app", fillcolor="#eafbea"];
+    LoggedIn [shape=diamond, label="Logged in?", fillcolor="#fdf3e0"];
+    LoginPage [label="Login / Register"];
+    Dashboard [label="Dashboard\n(stats & overdue loans)"];
+    Choice [shape=diamond, label="Choose action", fillcolor="#fdf3e0"];
+
+    MgBooks [label="Manage Books"];
+    AddBook [label="Add Book"];
+    EditBook [label="Edit Book"];
+    RemoveBook [label="Remove Book"];
+    Validate1 [shape=diamond, label="Valid input?", fillcolor="#fdf3e0"];
+    SaveBook [label="Save to DB", shape=cylinder, fillcolor="#f6eaf9"];
+
+    MgLoans [label="Manage Loans"];
+    IssueBook [label="Issue Book"];
+    Available [shape=diamond, label="Copy available?", fillcolor="#fdf3e0"];
+    RecordLoan [label="Create loan,\ndecrement available", shape=cylinder, fillcolor="#f6eaf9"];
+    ReturnBook [label="Return Book"];
+    UpdateLoan [label="Mark returned,\nincrement available", shape=cylinder, fillcolor="#f6eaf9"];
+
+    Start -> LoggedIn;
+    LoggedIn -> LoginPage [label="No"];
+    LoginPage -> LoggedIn;
+    LoggedIn -> Dashboard [label="Yes"];
+    Dashboard -> Choice;
+
+    Choice -> MgBooks;
+    Choice -> MgLoans;
+
+    MgBooks -> AddBook;
+    MgBooks -> EditBook;
+    MgBooks -> RemoveBook;
+    AddBook -> Validate1;
+    Validate1 -> AddBook [label="No"];
+    Validate1 -> SaveBook [label="Yes"];
+    SaveBook -> Dashboard;
+
+    MgLoans -> IssueBook;
+    MgLoans -> ReturnBook;
+    IssueBook -> Available;
+    Available -> IssueBook [label="No"];
+    Available -> RecordLoan [label="Yes"];
+    RecordLoan -> Dashboard;
+    ReturnBook -> UpdateLoan;
+    UpdateLoan -> Dashboard;
+}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<h1>Create a librarian account</h1>
+<form method="post" class="form">
+  <label>Username <input type="text" name="username" required autofocus></label>
+  <label>Password <input type="password" name="password" required minlength="6"></label>
+  <button type="submit">Register</button>
+</form>
+<p>Already have an account? <a href="{{ url_for('auth.login') }}">Log in</a></p>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+<div class="stat-grid">
+  <div class="stat-card"><span class="stat-number">{{ stats.total_books }}</span><span>Total book copies</span></div>
+  <div class="stat-card"><span class="stat-number">{{ stats.available_books }}</span><span>Available copies</span></div>
+  <div class="stat-card"><span class="stat-number">{{ stats.active_loans }}</span><span>Active loans</span></div>
+  <div class="stat-card stat-warning"><span class="stat-number">{{ stats.overdue_loans }}</span><span>Overdue loans</span></div>
+</div>
+
+<h2>Overdue loans</h2>
+{% if overdue %}
+<table class="table">
+  <tr><th>Book</th><th>Borrower</th><th>Due date</th></tr>
+  {% for loan in overdue %}
+  <tr><td>{{ loan.title }}</td><td>{{ loan.borrower }}</td><td>{{ loan.due_date }}</td></tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No overdue loans. 🎉</p>
+{% endif %}
+{% endblock %}

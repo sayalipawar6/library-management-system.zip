@@ -1,0 +1,45 @@
+digraph Architecture {
+    rankdir=TB;
+    fontname="Helvetica";
+    node [shape=box, style="rounded,filled", fontname="Helvetica", fillcolor="#eaf2fb", color="#2c5f8a"];
+    edge [fontname="Helvetica", color="#556"];
+
+    subgraph cluster_client {
+        label="Client (Browser)";
+        style=dashed;
+        UI [label="HTML Templates\n(Jinja2 + CSS)"];
+    }
+
+    subgraph cluster_app {
+        label="Flask Application";
+        style=dashed;
+        Auth [label="auth.py\nRegister / Login / Logout"];
+        Books [label="books.py\nBook CRUD"];
+        Loans [label="loans.py\nIssue / Return"];
+        Reports [label="reports.py\nDashboard"];
+        Utils [label="utils.py\nValidation & Access Control", fillcolor="#fdf3e0"];
+        Models [label="models.py\nData Access Layer", fillcolor="#eafbea"];
+    }
+
+    subgraph cluster_data {
+        label="Persistence";
+        style=dashed;
+        DB [label="SQLite\nlibrary.db", shape=cylinder, fillcolor="#f6eaf9"];
+    }
+
+    UI -> Auth [label="HTTP"];
+    UI -> Books [label="HTTP"];
+    UI -> Loans [label="HTTP"];
+    UI -> Reports [label="HTTP"];
+
+    Auth -> Utils;
+    Books -> Utils;
+    Loans -> Utils;
+
+    Auth -> Models;
+    Books -> Models;
+    Loans -> Models;
+    Reports -> Models;
+
+    Models -> DB;
+}

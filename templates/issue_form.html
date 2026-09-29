@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Issue book{% endblock %}
+{% block content %}
+<h1>Issue a book</h1>
+<form method="post" class="form">
+  <label>Book
+    <select name="book_id" required>
+      <option value="" disabled selected>Choose a book</option>
+      {% for book in books if book.available > 0 %}
+      <option value="{{ book.id }}">{{ book.title }} ({{ book.available }} available)</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Borrower name <input type="text" name="borrower" required></label>
+  <button type="submit">Issue book</button>
+</form>
+{% endblock %}

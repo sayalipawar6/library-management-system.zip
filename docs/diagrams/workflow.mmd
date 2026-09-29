@@ -1,0 +1,26 @@
+flowchart TD
+    Start([Librarian opens app]) --> LoggedIn{Logged in?}
+    LoggedIn -- No --> LoginPage[Login / Register]
+    LoginPage --> LoggedIn
+    LoggedIn -- Yes --> Dashboard[Dashboard: view stats & overdue loans]
+
+    Dashboard --> Choice{Choose action}
+    Choice --> MgBooks[Manage Books]
+    Choice --> MgLoans[Manage Loans]
+
+    MgBooks --> AddBook[Add Book]
+    MgBooks --> EditBook[Edit Book]
+    MgBooks --> RemoveBook[Remove Book]
+    AddBook --> Validate1{Valid input?}
+    Validate1 -- No --> AddBook
+    Validate1 -- Yes --> SaveBook[(Save to DB)]
+    SaveBook --> Dashboard
+
+    MgLoans --> IssueBook[Issue Book to Borrower]
+    MgLoans --> ReturnBook[Return Book]
+    IssueBook --> Available{Copy available?}
+    Available -- No --> IssueBook
+    Available -- Yes --> RecordLoan[(Create loan, decrement available)]
+    RecordLoan --> Dashboard
+    ReturnBook --> UpdateLoan[(Mark returned, increment available)]
+    UpdateLoan --> Dashboard

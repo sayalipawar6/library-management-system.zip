@@ -1,0 +1,12 @@
+digraph ER {
+    rankdir=LR;
+    fontname="Helvetica";
+    node [shape=record, fontname="Helvetica", style=filled, fillcolor="#f6eaf9", color="#7a3a8a"];
+
+    USERS [label="{USERS|id (PK)\lusername\lpassword_hash\lrole\l}"];
+    BOOKS [label="{BOOKS|id (PK)\ltitle\lauthor\lisbn\lquantity\lavailable\l}"];
+    LOANS [label="{LOANS|id (PK)\lbook_id (FK)\lborrower\lissued_by (FK)\lissue_date\ldue_date\lreturn_date\lstatus\l}"];
+
+    USERS -> LOANS [label="1 : N  issues", arrowhead=crow, dir=back];
+    BOOKS -> LOANS [label="1 : N  loaned as", arrowhead=crow, dir=back];
+}

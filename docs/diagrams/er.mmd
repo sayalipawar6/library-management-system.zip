@@ -1,0 +1,28 @@
+erDiagram
+    USERS ||--o{ LOANS : issues
+    BOOKS ||--o{ LOANS : "is loaned as"
+
+    USERS {
+        int id PK
+        string username
+        string password_hash
+        string role
+    }
+    BOOKS {
+        int id PK
+        string title
+        string author
+        string isbn
+        int quantity
+        int available
+    }
+    LOANS {
+        int id PK
+        int book_id FK
+        string borrower
+        int issued_by FK
+        date issue_date
+        date due_date
+        date return_date
+        string status
+    }
